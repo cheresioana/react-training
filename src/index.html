@@ -6,9 +6,12 @@
   <link href='assets/css/styles.css' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" href="assets/css/font-awesome-4.3.0/css/font-awesome.min.css">
   <link rel="shortcut icon" href="assets/img/favicon.ico" type="image/x-icon" />
+  <script src="sdk.js"></script>
+  <script src="//connect.soundcloud.com/sdk.js"></script>
+  <script src="stormpath-sdk-react.min.js"></script>
 </head>
 <body>
-
+<body onload="window.setTimeout(window.opener.SC.connectCallback, 1)">
 <div id="container" class="disabled">
   <button id="menu-toggle">
     <i class="fa fa-bars fa-fw fa-2x"></i>

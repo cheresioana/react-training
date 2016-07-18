@@ -4,6 +4,17 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
 var FontAwesome = require('react-fontawesome');
 
+var SoundPlayerComponents = require('react-soundplayer/components');
+var SoundPlayerAddons = require('react-soundplayer/addons');
+
+var PlayButton = SoundPlayerComponents.PlayButton;
+var Progress = SoundPlayerComponents.Progress;
+
+//icons are components too!
+var SoundCloudLogoSVG = SoundPlayerComponents.Icons.SoundCloudLogoSVG
+
+var SoundPlayerContainer = SoundPlayerAddons.SoundPlayerContainer;
+
 var BUILD_DIR = path.resolve(__dirname, 'dist');
 var APP_DIR = path.resolve(__dirname, 'src/client/app');
 var STYLE_DIR = path.resolve(__dirname, 'src/client/styles');
