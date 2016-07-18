@@ -1,57 +1,56 @@
 import React from 'react';
 
-
-
-
 class ControlBar extends React.Component{
-
-  
-
 	constructor()
 	{
-
 		super();
-    const user = 953;
-
     this.state = {
       play: "false",
-      songID: 0,
-      songTitle: "?" 
+      player: null,
+      SC : null
     };
     this.playSong = this.playSong.bind(this);
     this.pauseSong = this.pauseSong.bind(this);
 	}
 
+ 
+
   playSong()
   {
+      var context = this; 
       var SC = require('soundcloud');
       SC.initialize({
         client_id: '10723ca53b6d3aaecaa12a194a3997a0'
       });
-      SC.get('/tracks').then(function(tracks){                                    //Request for the song list
-          var number = Math.floor(Math.random() * 50 + 1);
-          this.setState({songID: track[number].id, songTitle: tracks[number].title});
-          SC.stream('/tracks/' + tracks[number].id).then(function(player){      //PLAY SONG
+      SC.get('/tracks').then((tracks) => {                                        //Request for the song list
+          var number = Math.floor(Math.random() * 30+ 1);
+          console.log(number, tracks[number].title);
+          console.log("trece??")
+
+          SC.stream('/tracks/' + tracks[number].id).then((player) => {            //PLAY SONG
             player.play();
+            this.setState({
+              play: "true",
+              player: player,
+              SC: SC
+              });
           });
           console.log('Song played: ' + tracks[number].title);
           
+          console.log("dupa");
+          
       });
+
+      console.log("ar trebuii sa fie la final");
   }
  
   pauseSong()
   {    
-    var SC = require('soundcloud');
-    SC.initialize({
-      client_id: '10723ca53b6d3aaecaa12a194a3997a0'
-    });
-    SC.get('/tracks').then(function(tracks){                                    //Request for the song list
-      var number = this.state.number;
-      SC.stream('/tracks/' + number).then(function(player){      //PLAY SONG
-          player.pause();
-      });
-      console.log('Song played: ' + tracks[number].title);
-    });
+    console.log(this.state.songTitle);
+    if (this.state.player === null)
+      console.log("nu");
+    this.state.player.pause();
+      
   }
 
 	render()
