@@ -1,5 +1,6 @@
 import React from 'react';
 import { Menu, Button } from 'react-bootstrap';
+import Wave from './Wave.jsx';
 
 class LeftMenu extends React.Component{
   	constructor() {
@@ -53,6 +54,7 @@ class LeftMenu extends React.Component{
           </a>
         </li>
       </ul>
+       <Wave />
     </div>  
       );
   }

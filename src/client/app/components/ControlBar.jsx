@@ -1,61 +1,44 @@
 import React from 'react';
 
+
 class ControlBar extends React.Component{
 	constructor()
 	{
 		super();
+   
     this.state = {
-      play: "false",
-      player: null,
-      SC : null
+      expendedBar: "hidden"
     };
     this.playSong = this.playSong.bind(this);
     this.pauseSong = this.pauseSong.bind(this);
+    this.expend = this.expend.bind(this);
+    this.hide = this.hide.bind(this);
 	}
 
- 
+  expend()
+  {
+      this.setState({expendedBar: "active"});       
+  }
+
+  hide()
+  {
+    this.setState({expendedBar: "hidden"});
+  }
 
   playSong()
   {
-      var context = this; 
-      var SC = require('soundcloud');
-      SC.initialize({
-        client_id: '10723ca53b6d3aaecaa12a194a3997a0'
-      });
-      SC.get('/tracks').then((tracks) => {                                        //Request for the song list
-          var number = Math.floor(Math.random() * 30+ 1);
-          console.log(number, tracks[number].title);
-          console.log("trece??")
-
-          SC.stream('/tracks/' + tracks[number].id).then((player) => {            //PLAY SONG
-            player.play();
-            this.setState({
-              play: "true",
-              player: player,
-              SC: SC
-              });
-          });
-          console.log('Song played: ' + tracks[number].title);
-          
-          console.log("dupa");
-          
-      });
-
-      console.log("ar trebuii sa fie la final");
+     
   }
  
   pauseSong()
   {    
-    console.log(this.state.songTitle);
-    if (this.state.player === null)
-      console.log("nu");
-    this.state.player.pause();
-      
+ 
   }
 
 	render()
 	{
 		return(
+     
 		<div id="control-bar">
 			<div className="player-control">
 				<div id="previous-button" title="Previous"><i className="fa fa-fast-backward"></i></div>   
@@ -68,7 +51,7 @@ class ControlBar extends React.Component{
 			</div>
 
 			<div id="playlist">
-				<div id="track-details" title="Show playlist">
+				<div id="track-details" title="Show playlist" onClick={this.expend}>
 				<i className="fa fa-sort"></i>
 				<p id="track-desc">There are no tracks loaded in the player.</p>
 				<p id="track-time">
@@ -76,7 +59,7 @@ class ControlBar extends React.Component{
 				</p>
 				</div>
 
-				<div id="expand-bar" className="hidden">
+				<div id="expand-bar" className={this.state.expendedBar} onMouseLeave={this.hide}>
   				<h2>Playlist name</h2>
 
   				<forHtmlm>
@@ -89,6 +72,14 @@ class ControlBar extends React.Component{
 
 		);
 	}
+}
+
+ControlBar.propTypes = {
+  
+}
+
+ControlBar.defaultProps = {
+ 
 }
 
 export default ControlBar;

@@ -6,7 +6,7 @@ class CoverArt extends React.Component{
       return(
         <div id="cover-art">
           <div id="cover-art-big"></div>
-          <img id="cover-art-small" alt="cover-art-small" src="assets/img/default.png"/>
+          <img id="cover-art-small" alt="cover-art-small" src="/src/assets/img/default.png"/>
         </div>
       );
     }

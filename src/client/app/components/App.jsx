@@ -1,18 +1,18 @@
 import React from 'react';
 import LeftMenu from './LeftMenu.jsx';
 import ControlBar from './ControlBar.jsx';
-import MainPlayingPage from './MainPlayingPage.jsx';
+import AllTracks from './AllTracks.jsx';
 import CoverArt from './CoverArt.jsx';
-import Wave from './Wave.jsx';
+import Playlists from './Playlists.jsx';
+
 
 class App extends React.Component {
   render () {
     return(
   <div id="container" className="active">
   <LeftMenu />
-  <MainPlayingPage />
+  <Playlists />
   <ControlBar />
-  
 </div>
       );
   }
