@@ -1,6 +1,7 @@
 import React from 'react';
 import { Menu, Button } from 'react-bootstrap';
 import Wave from './Wave.jsx';
+import { Link } from 'react-router';
 
 class LeftMenu extends React.Component{
   	constructor() {
@@ -37,21 +38,21 @@ class LeftMenu extends React.Component{
 
       <ul id="menu" className={this.state.menu} onMouseLeave={this.mouseExit}>
         <li className="acitve">
-          <a href="#" disabled={true}>
+          <Link to="/nowplaying">
             Now Playing
-          </a>
+          </Link>
         </li>
 
         <li>
-          <a href="#">
+          <Link to="/browse">
             Explore Tracks
-          </a>
+          </Link>
         </li>
 
         <li>
-          <a href="#">
+          <Link to="/playlists">
             My Playlists
-          </a>
+          </Link>
         </li>
       </ul>
        <Wave />

@@ -28,7 +28,7 @@ var config = {
     ],
   output: {
     path: BUILD_DIR,
-    filename: 'bundle.js',
+    filename: '/scripts/bundle.js',
     sourceMapFilename: '[file].map'
   },
   devtool: 'eval',
@@ -67,7 +67,10 @@ var config = {
       filename: 'index.html',
       template: __dirname + '/index.html'
     })
-  ]
+  ],
+  devServer: {
+    historyApiFallback: true
+  }
 };
 
 
