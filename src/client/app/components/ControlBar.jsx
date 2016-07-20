@@ -62,9 +62,9 @@ class ControlBar extends React.Component{
 				<div id="expand-bar" className={this.state.expendedBar} onMouseLeave={this.hide}>
   				<h2>Playlist name</h2>
 
-  				<forHtmlm>
-  					<label forHtml="searchBox">Search</label><div><input id="searchBox" type="search" name="search"/></div>
-  				</forHtmlm>
+  				<form>
+  					<label htmlFor="searchBox">Search</label><div><input id="searchBox" type="search" name="search"/></div>
+  				</form>
   				<ul id="list"></ul>
 			  </div>
 	    </div>

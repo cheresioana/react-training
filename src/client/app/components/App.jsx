@@ -6,12 +6,13 @@ import CoverArt from './CoverArt.jsx';
 import Playlists from './Playlists.jsx';
 
 
+
 class App extends React.Component {
   render () {
     return(
   <div id="container" className="active">
   <LeftMenu />
-  <Playlists />
+  <AllTracks />
   <ControlBar />
 </div>
       );
