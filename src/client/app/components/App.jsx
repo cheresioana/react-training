@@ -12,7 +12,7 @@ class App extends React.Component {
     return(
   <div id="container" className="active">
   <LeftMenu />
-  <AllTracks />
+  	{this.props.children}
   <ControlBar />
 </div>
       );

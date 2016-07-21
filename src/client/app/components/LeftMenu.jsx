@@ -38,13 +38,13 @@ class LeftMenu extends React.Component{
 
       <ul id="menu" className={this.state.menu} onMouseLeave={this.mouseExit}>
         <li className="acitve">
-          <Link to="/nowplaying">
+          <Link to="/">
             Now Playing
           </Link>
         </li>
 
         <li>
-          <Link to="/browse">
+          <Link to="/">
             Explore Tracks
           </Link>
         </li>
