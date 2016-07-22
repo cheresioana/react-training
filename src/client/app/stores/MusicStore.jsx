@@ -9,16 +9,12 @@ class MusicStore extends EventEmitter{
     this.SC.initialize(
       {client_id: '10723ca53b6d3aaecaa12a194a3997a0'});
     SC.get('/tracks').then((tracks) => {                                        //Request for the song list
-          for (var i = 1; i< 12; i++)
-            {
-              //console.log(tracks[i].title + " " + i);
-              this.songList.push(tracks[i]);
-            }
+          tracks.map((eachName)=> {
+          this.songList.push(eachName);
       });
-    for (var j; j< 8 ; j++)
-    {
-      console.log(this.songList[i].title + " " + i);
-    }
+      this.emit("change");
+    });
+    this.getAll = this.getAll.bind(this);
   }
 
   getAll()
