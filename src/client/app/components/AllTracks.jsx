@@ -1,6 +1,7 @@
 import React from 'react';
 import AddToPlaylist from './AddToPlaylist.jsx';
 import MusicStore from '../stores/MusicStore.jsx';
+import * as MusicActions from '../actions/MusicActions.jsx';
 
 class AllTracks extends React.Component{
         
@@ -11,11 +12,12 @@ class AllTracks extends React.Component{
       modalActive : false,
       music : MusicStore.getAll()
     }
-    
+    console.log("???"); 
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
     this.sort = this.sort.bind(this);
     this.getRequestedMusic = this.getRequestedMusic.bind(this);
+    //this.playSong = this.playSong.bind(this);
   }
 
   getRequestedMusic(data)
@@ -44,6 +46,7 @@ class AllTracks extends React.Component{
 
   componentWillMount()
   {
+    console.log("??");
     MusicStore.on("change", ()=>{
       this.setState({
         music : MusicStore.getAll()
@@ -61,6 +64,11 @@ class AllTracks extends React.Component{
     this.setState({modalActive: false});
   }
 
+  playSong(song)
+  {
+    MusicActions.playSong(song);
+  }
+
   render()
   {
     const tracks = this.state.music;
@@ -68,15 +76,15 @@ class AllTracks extends React.Component{
     const blocks = tracks.map((song) => {
       index = index + 1;
       return <li className="track" data-index={index}>
-            <div><span className="overlay"><i className="fa fa-play"></i></span>
+            <div onClick={this.playSong.bind(this, song)}><span className="overlay"><i className="fa fa-play"></i></span>
               <img src={song.artwork_url} alt = "no png"/>
             </div>
-            <div>
+            <div >
               <button onClick={this.openModal}>
                 <i className="fa fa-fw fa-plus" ></i>
               </button>
-              <p className="title">{song.title}</p>
-              <p className="artist">{song.user.username}</p>
+              <p className="title" onClick={this.playSong.bind(this, song)} >{song.title}</p>
+              <p className="artist" onClick={this.playSong.bind(this, song)}>{song.user.username}</p>
             </div>
           </li>;
     });
@@ -99,5 +107,9 @@ class AllTracks extends React.Component{
       );
   }
 }
+
+AllTracks.propTypes = {
+  song: React.PropTypes.object.isRequired
+};
 
 export default AllTracks;
