@@ -19,3 +19,9 @@ export function addToPlaylist(song){
 		songDetails: song
 	});
 }
+
+export function continueSong(){
+	dispatcher.dispatch({
+		type: "CONTINUE_SONG"
+	});
+}

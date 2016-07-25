@@ -6,7 +6,9 @@ class MusicStore extends EventEmitter{
   {
     super();
     this.songList = [];
+    this.songsNumber = 0;
     this.player = null;
+    this.song = null;
     console.log("?");
     this.SC = require('soundcloud');
     this.SC.initialize(
@@ -14,20 +16,36 @@ class MusicStore extends EventEmitter{
     SC.get('/tracks').then((tracks) => {                                        //Request for the song list
           tracks.map((eachName)=> {
           this.songList.push(eachName);
+          this.songsNumber++
       });
       this.emit("change");
     });
     this.getAll = this.getAll.bind(this);
-    this.playAction = this.playAction.bind(this);
+    this.playSonga = this.playSonga.bind(this);
+    this.pauseSonga = this.pauseSonga.bind(this);
+    this.continueSonga = this.continueSonga.bind(this);
   }
 
 
-  playAction(song)
+  playSonga(song)
   {
     this.SC.stream('/tracks/' + song.id).then((player) => {            //PLAY SONG
           player.play();
           this.player = player;
-        });   
+      });   
+  }
+
+  continueSonga()
+  {
+    console.log("de ce pizda matii ajungi in continue");
+    if (this.player)
+      this.player.play();
+  }
+
+  pauseSonga()
+  {
+    if (this.player)
+      this.player.pause();
   }
 
   getAll()
@@ -40,7 +58,13 @@ class MusicStore extends EventEmitter{
     switch(action.type)
     {
       case "PLAY_SONG" :{
-        this.playAction(action.songDetails);
+        this.playSonga(action.songDetails);
+      }
+      case "PAUSE_SONG" :{
+        this.pauseSonga();
+      }
+      case "CONTINUE_SONG" :{
+        this.continueSonga();
       }
     }
   }

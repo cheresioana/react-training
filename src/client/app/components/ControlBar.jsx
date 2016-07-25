@@ -1,5 +1,6 @@
 import React from 'react';
-
+import MusicStore from '../stores/MusicStore.jsx';
+import * as MusicActions from '../actions/MusicActions.jsx';
 
 class ControlBar extends React.Component{
 	constructor()
@@ -27,12 +28,12 @@ class ControlBar extends React.Component{
 
   playSong()
   {
-     
+     MusicActions.continueSong();
   }
  
   pauseSong()
   {    
- 
+ 		MusicActions.pauseSong();
   }
 
 	render()
@@ -42,7 +43,7 @@ class ControlBar extends React.Component{
 		<div id="control-bar">
 			<div className="player-control">
 				<div id="previous-button" title="Previous"><i className="fa fa-fast-backward"></i></div>   
-        <div onClick={this.playSong} id="play-button" title="Play" ><i className="fa fa-play"></i></div>
+        		<div onClick={this.playSong} id="play-button" title="Play" ><i className="fa fa-play"></i></div>
 				<div onClick={this.pauseSong} id="pause-button" title="Pause"><i className="fa fa-pause"></i></div>
 				<div id="stop-button" title="Stop"><i className="fa fa-stop"></i></div>
 				<div id="next-button" title="Next"><i className="fa fa-fast-forHtmlward"></i></div>

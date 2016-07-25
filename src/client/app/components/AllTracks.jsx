@@ -66,6 +66,7 @@ class AllTracks extends React.Component{
 
   playSong(song)
   {
+    console.log("ce pula, da play");
     MusicActions.playSong(song);
   }
 
@@ -90,7 +91,7 @@ class AllTracks extends React.Component{
     });
 
     return(
-    <div>
+    <div id="wrapper-all-tracks">
     <div id="all-tracks">
         <form>
           <label htmlFor="allTracksSearchBox">Search</label>
