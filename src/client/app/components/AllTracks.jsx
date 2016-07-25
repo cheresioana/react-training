@@ -10,15 +10,15 @@ class AllTracks extends React.Component{
     super();
     this.state = {
       modalActive : false,
-      music : MusicStore.getAll()
+      music : MusicStore.getSongs()
     }
     console.log("???"); 
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
     this.sort = this.sort.bind(this);
     this.getRequestedMusic = this.getRequestedMusic.bind(this);
-    //this.playSong = this.playSong.bind(this);
   }
+
 
   getRequestedMusic(data)
   {
@@ -46,16 +46,19 @@ class AllTracks extends React.Component{
 
   componentWillMount()
   {
-    console.log("??");
     MusicStore.on("change", ()=>{
       this.setState({
-        music : MusicStore.getAll()
+        music : MusicStore.getSongs()
       });
     });
   }
 
-  openModal()
+  openModal(event)
   {
+    //console.log(event.target.getAttribute('data-index'));
+    this.sendSong = this.state.music[event.target.getAttribute('data-index')];
+    console.log(this.sendSong);
+    //MusicActions.seSelectedSong(event.)
     this.setState({modalActive: true});
   }
 
@@ -66,7 +69,6 @@ class AllTracks extends React.Component{
 
   playSong(song)
   {
-    console.log("ce pula, da play");
     MusicActions.playSong(song);
   }
 
@@ -82,7 +84,7 @@ class AllTracks extends React.Component{
             </div>
             <div >
               <button onClick={this.openModal}>
-                <i className="fa fa-fw fa-plus" ></i>
+                <i className="fa fa-fw fa-plus" data-index={index}></i>
               </button>
               <p className="title" onClick={this.playSong.bind(this, song)} >{song.title}</p>
               <p className="artist" onClick={this.playSong.bind(this, song)}>{song.user.username}</p>
@@ -102,7 +104,7 @@ class AllTracks extends React.Component{
 
         <ul>{blocks}</ul>
     </div>
-    {(this.state.modalActive) ? (<AddToPlaylist  closeModal={this.closeModal}/>):(null)}
+    {(this.state.modalActive) ? (<AddToPlaylist  closeModal={this.closeModal} selectedSong ={this.sendSong}/>):(null)}
      
     </div>
       );

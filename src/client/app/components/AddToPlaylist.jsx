@@ -1,33 +1,78 @@
 import React from 'react';
 
+import MusicStore from '../stores/MusicStore.jsx';
+import * as MusicActions from '../actions/MusicActions.jsx';
+
+
 class AddToPlaylist extends React.Component{
   
+  constructor()
+  {
+    super();
+    this.state = {
+      newPlaylist: true,
+      playlists: MusicStore.getPlaylists()
+    };
+    this.save = this.save.bind(this);
+    this.selectPlaylist = this.selectPlaylist.bind(this);
+  }
+
+  save()
+  {
+    console.log(React.findDOMNode(this.id.addPlaylist).value);
+    //MusicStore.addSongToPlaylist(this.props.selectedSong)
+    this.props.closeModal();
+  }
+
+  componentWillMount()
+  {
+    MusicStore.on("playlist", ()=>{
+      this.setState({
+        playlists: MusicStore.getPlaylists()
+      });
+    });
+  }
+
+  selectPlaylist(event)
+  {
+    if (!(event.target.value === "new"))
+      this.setState({newPlaylist: false});
+  }
+
   render()
   {
-    const closeModal = this.props.closeModal;
 
+    const closeModal = this.props.closeModal;
+    const song = this.props.selectedSong;
+    var index = 0;
+
+    const options = this.state.playlists.map((playlist)=>{
+      index++;
+        return <option value={index}>playlist.title</option>
+      });
     return(
       <div>
         <div id="backdrop" onClick={closeModal}></div>
         <div className="modal">
-          <h2>Add "Never Gonna Give You Up" to Playlist</h2>
+          <h2>Add "{song.title}" to Playlist</h2>
 
           <form>
             <label htmlFor="addToPlaylist">Playlist:</label>
-            <select id="addToPlaylist">
-              <option value="1">Abbey Road</option>
-              <option value="2">Atom Heart</option>
-              <option value="3">What's Going On</option>
-              <option value="4">Slave to the Rhythm</option>
-              <option value="5">Dark Side of the Moon</option>
+            <select id="addToPlaylist" onClick={this.selectPlaylist}>
+              {options}
               <option value="new" selected>Create New Playlist</option>
             </select>
 
-            <label htmlFor="addPlaylist">Playlist Name:</label>
-            <input type="text" id="addPlaylist"/>
+            
+            {(this.state.newPlaylist)?(
+              <div>
+                <label htmlFor="addPlaylist">Playlist Name:</label>
+                <input type="text" id="addPlaylist"/>
+              </div>
+              ) : (null)}
           </form>
 
-          <button onClick={closeModal}>
+          <button onClick={this.save}>
             Save
           </button>
         </div>

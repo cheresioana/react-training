@@ -8,7 +8,8 @@ class ControlBar extends React.Component{
 		super();
    
     this.state = {
-      expendedBar: "hidden"
+      expendedBar: "hidden",
+      song: null
     };
     this.playSong = this.playSong.bind(this);
     this.pauseSong = this.pauseSong.bind(this);
@@ -31,6 +32,15 @@ class ControlBar extends React.Component{
      MusicActions.continueSong();
   }
  
+  componentWillMount()
+  {
+    MusicStore.on("newSong", ()=>{
+      this.setState({
+        song : MusicStore.getSong()
+      });
+    });
+  }
+
   pauseSong()
   {    
  		MusicActions.pauseSong();
@@ -38,6 +48,7 @@ class ControlBar extends React.Component{
 
 	render()
 	{
+		const song = this.state.song;
 		return(
      
 		<div id="control-bar">
@@ -54,7 +65,7 @@ class ControlBar extends React.Component{
 			<div id="playlist">
 				<div id="track-details" title="Show playlist" onClick={this.expend}>
 				<i className="fa fa-sort"></i>
-				<p id="track-desc">There are no tracks loaded in the player.</p>
+				<p id="track-desc">{(song)? (song.title) : ("There are no tracks loaded in the player.")}</p>
 				<p id="track-time">
 					<span id="current">-</span> / <span id="total">-</span>
 				</p>
